@@ -41,12 +41,22 @@ The following Regular Expression (Regex) searches for characters matching a spec
   Our regex makes use of bracketed expressions, also considered character classes, to determine its character searches, and does not contain any non-bracketed classes.
 
 ### Flags
-
+  In order to prevent a regex from being read as a literal, it must be wrapped in `/ /`. Flags are an exception to this rule and are placed outside of the second `/` at the end of the regex.  There are seven total flags, each adding an additional parameter to the search. `d` generates indices for substring matches. `g` indicates a global search. `i` removes case sensitivity. `m` allows newline characters to be matched by anchors. `s` allows the `.` character to match newline characters. `u` treats a pattern as unicode. `y` makes a search "sticky," starting at the current point in the target string. 
+  
+  Our regex does not use flags. 
+  
 ### Grouping and Capturing
+  Grouping is mainly accomplished through parenthesis, creating subexpressions within the expression. Subexpressions, as opposed to bracket expressions, look for exact matches. A capturing group captures the matched characters for later reference. 
 
 ### Bracket Expressions
+  Any set of characters inside a set of square brackets `[ ]` is treated as a character class including non-required, but acceptable match characters. A range of alphnumeric characters can be represented by a range with a hyphen, e.g. `[a-z]` or `[0-9]`. The underscore `_` and hyphen `-` are also commonly included. A common bracket expression puts all of these together: `[a-z0-9_-]` and will match any string containing any combination of lowercase letters, numbers 0-9, an underscore, or a hyphen. 
+  
+  A bracket expression can also be inverted to exclude its contents by adding the `^` character at the beginning, e.g. `[^a-z]`. 
+  
+   Our regex makes use of three bracketed expressions: `[a-z0-9_\.-]` - matching any alphanumeric character a-z, 0-9 as well as `_`, `.`, `-`, `[\da-z\.-]` - written differently, but matching the same minus the `_`, and `[a-z\.]` - matching letters a-z and `.`.
 
 ### Greedy and Lazy Match
+  Matches are greedy - match as many occurences as possible - unless otherwise limited. The `?` character makes a match lazy - matching as few occurences as possible. Our regex does not use lazy matching. 
 
 ### Boundaries
 
